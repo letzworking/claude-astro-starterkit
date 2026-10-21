@@ -25,3 +25,18 @@ pnpm-debug.log*
 
 # claude code personal settings (machine-specific paths)
 .claude/settings.local.json
+CLAUDE.local.md
+
+# editor / IDE settings
+.vscode/
+*.code-workspace
+
+# AI 도구 로컬 설정
+.codex/
+.gemini/
+.cursor/
+.windsurf/
+
+# 로컬 환경 변수 (.env.example 같은 템플릿은 제외)
+.env.*
+!.env.example
