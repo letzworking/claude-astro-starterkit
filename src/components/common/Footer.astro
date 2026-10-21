@@ -1,0 +1,14 @@
+---
+import { siteConfig } from '@/lib/site';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-border">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:px-6">
+    <p>
+      © {currentYear} {siteConfig.name}. All rights reserved.
+    </p>
+    <p>Built with Astro &amp; Tailwind CSS</p>
+  </div>
+</footer>

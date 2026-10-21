@@ -1,0 +1,150 @@
+---
+import { Code, Layers, Palette, Rocket, Smartphone, Zap } from '@lucide/astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import CardHeader from '@/components/ui/CardHeader.astro';
+import CardTitle from '@/components/ui/CardTitle.astro';
+import CardDescription from '@/components/ui/CardDescription.astro';
+import CardContent from '@/components/ui/CardContent.astro';
+import CardFooter from '@/components/ui/CardFooter.astro';
+import { siteConfig } from '@/lib/site';
+
+const features = [
+  {
+    icon: Zap,
+    title: '빠른 성능',
+    description: 'Astro의 정적 우선 렌더링으로 JavaScript를 최소화해 빠르게 로드됩니다.',
+  },
+  {
+    icon: Palette,
+    title: '다크모드 지원',
+    description: 'class 기반 다크모드와 CSS 변수 토큰으로 라이트/다크 테마를 일관되게 제공합니다.',
+  },
+  {
+    icon: Layers,
+    title: '재사용 컴포넌트',
+    description: 'shadcn/ui 스타일의 Button, Card 등 원시 컴포넌트를 바로 사용할 수 있습니다.',
+  },
+  {
+    icon: Code,
+    title: '타입 안전',
+    description: 'TypeScript 엄격 모드와 경로 별칭(@/)으로 안정적으로 개발합니다.',
+  },
+  {
+    icon: Smartphone,
+    title: '모바일 우선',
+    description:
+      '모바일 우선 반응형 레이아웃과 키보드로 접근 가능한 내비게이션을 기본으로 제공합니다.',
+  },
+  {
+    icon: Rocket,
+    title: '바로 배포',
+    description: '별도 설정 없이 정적 호스팅(Vercel, Netlify, GitHub Pages)에 배포할 수 있습니다.',
+  },
+];
+---
+
+<BaseLayout>
+  <!-- 히어로 섹션 -->
+  <section class="relative overflow-hidden">
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-brand-500/15 via-background to-background"
+      aria-hidden="true"
+    ></div>
+
+    <div class="mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 py-24 text-center sm:px-6 sm:py-32">
+      <span class="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
+        <Rocket class="size-3.5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
+        Astro · Tailwind CSS · TypeScript
+      </span>
+
+      <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl">
+        <span class="bg-linear-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
+          고성능 프론트엔드
+        </span>
+        를
+        <br class="hidden sm:block" />
+        빠르게 시작하세요
+      </h1>
+
+      <p class="max-w-2xl text-base text-muted-foreground sm:text-lg">{siteConfig.description}</p>
+
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <Button href="#getting-started" size="lg">
+          시작하기
+        </Button>
+        <Button
+          href="https://docs.astro.build"
+          variant="outline"
+          size="lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          문서 보기
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 기능 소개 -->
+  <section id="features" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight">포함된 기능</h2>
+      <p class="mt-3 text-muted-foreground">
+        프로젝트 시작에 필요한 설정과 컴포넌트를 미리 준비해 두었습니다.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {features.map(({ icon: Icon, title, description }) => (
+        <Card class="transition-shadow hover:shadow-md">
+          <CardHeader>
+            <div class="mb-2 inline-flex size-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-400">
+              <Icon class="size-5" aria-hidden="true" />
+            </div>
+            <CardTitle as="h3">{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </CardHeader>
+        </Card>
+      ))}
+    </div>
+  </section>
+
+  <!-- 컴포넌트 사용 예시: CardHeader, CardContent, CardFooter 조합 -->
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <Card class="mx-auto max-w-2xl">
+      <CardHeader>
+        <CardTitle as="h2">새 컴포넌트 만들기</CardTitle>
+        <CardDescription>
+          src/components/ui 에 Astro 파일을 추가하고 필요한 variant를 정의하세요.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <pre class="overflow-x-auto rounded-lg bg-muted p-4 text-sm text-muted-foreground"><code>import Button from '@/components/ui/Button.astro';</code></pre>
+      </CardContent>
+      <CardFooter class="gap-3">
+        <Button
+          href="https://docs.astro.build/en/basics/astro-components/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          컴포넌트 문서
+        </Button>
+        <Button variant="ghost" href="#features">
+          기능 보기
+        </Button>
+      </CardFooter>
+    </Card>
+  </section>
+
+  <!-- 시작하기 안내 -->
+  <section id="getting-started" class="scroll-mt-20 border-t border-border bg-muted/40">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <h2 class="text-3xl font-bold tracking-tight">시작하기</h2>
+      <p class="mt-3 text-muted-foreground">아래 명령어로 로컬 개발 서버를 실행합니다.</p>
+      <pre class="mt-6 overflow-x-auto rounded-xl bg-secondary p-4 text-sm text-secondary-foreground"><code>npm install
+npm run dev</code></pre>
+    </div>
+  </section>
+</BaseLayout>
