@@ -1,0 +1,31 @@
+---
+import { Moon, Sun } from '@lucide/astro';
+---
+
+<!-- 다크모드 전환 버튼: 아이콘 전환은 CSS(dark: variant)로 처리합니다 -->
+<button
+  type="button"
+  id="theme-toggle"
+  class="inline-flex size-10 items-center justify-center rounded-md transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+  aria-label="테마 전환"
+>
+  <!-- 라이트 모드에서는 달 아이콘(다크로 전환), 다크 모드에서는 해 아이콘(라이트로 전환) -->
+  <Moon class="size-5 dark:hidden" aria-hidden="true" />
+  <Sun class="hidden size-5 dark:block" aria-hidden="true" />
+</button>
+
+<script>
+  const THEME_KEY = 'theme';
+
+  const toggle = document.getElementById('theme-toggle');
+
+  toggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+
+    try {
+      localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+    } catch {
+      // 사생활 보호 모드 등 저장소 접근이 막힌 환경에서는 저장만 건너뜁니다
+    }
+  });
+</script>

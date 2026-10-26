@@ -1,0 +1,87 @@
+---
+import { Menu, X } from '@lucide/astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { navItems, siteConfig } from '@/lib/site';
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur">
+  <nav
+    class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6"
+    aria-label="주요 메뉴"
+  >
+    <a href="/" class="text-lg font-bold tracking-tight">
+      {siteConfig.name}
+    </a>
+
+    <!-- 데스크톱 메뉴 (md 이상) -->
+    <ul class="hidden items-center gap-6 md:flex">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+      <!-- 모바일 메뉴 토글 (md 미만) -->
+      <button
+        type="button"
+        id="menu-toggle"
+        class="inline-flex size-10 items-center justify-center rounded-md transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
+        aria-label="메뉴 열기"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <Menu data-icon="open" class="size-5" aria-hidden="true" />
+        <X data-icon="close" class="hidden size-5" aria-hidden="true" />
+      </button>
+    </div>
+  </nav>
+
+  <ul id="mobile-menu" class="hidden border-t border-border px-4 py-2 md:hidden">
+    {navItems.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          class="block rounded-md px-3 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    const openIcon = toggle.querySelector<HTMLElement>('[data-icon="open"]');
+    const closeIcon = toggle.querySelector<HTMLElement>('[data-icon="close"]');
+
+    // 메뉴 상태를 바꾸고 아이콘, 접근성 속성을 함께 갱신합니다
+    const setMenuOpen = (isOpen: boolean) => {
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+      menu.classList.toggle('hidden', !isOpen);
+      openIcon?.classList.toggle('hidden', isOpen);
+      closeIcon?.classList.toggle('hidden', !isOpen);
+    };
+
+    toggle.addEventListener('click', () => {
+      setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // 메뉴 항목을 누르면 모바일 메뉴를 닫습니다
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+  }
+</script>

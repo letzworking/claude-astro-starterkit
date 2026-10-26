@@ -1,0 +1,65 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+import { siteConfig } from '@/lib/site';
+import type { BaseLayoutProps } from '@/types';
+
+const { title, description = siteConfig.description, image } = Astro.props as BaseLayoutProps;
+
+const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+// site 가 설정되어 있으면 절대 URL 을 만들고, 없으면 현재 요청 URL 을 사용합니다
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const imageUrl = image ? new URL(image, Astro.site ?? Astro.url) : undefined;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- SEO 기본 메타 -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+
+    <!-- Twitter 카드 -->
+    <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+
+    <!-- 저장된 테마를 본문 렌더링 전에 적용해 화면 깜빡임(FOUC)을 막습니다 -->
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem('theme');
+          const isDark = saved
+            ? saved === 'dark'
+            : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch {
+          // 저장소 접근이 막힌 환경에서는 시스템 설정을 따릅니다
+        }
+      })();
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
