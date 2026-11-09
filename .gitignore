@@ -40,3 +40,6 @@ CLAUDE.local.md
 # 로컬 환경 변수 (.env.example 같은 템플릿은 제외)
 .env.*
 !.env.example
+
+# Slack 웹훅 URL (비밀값)
+.claude/hooks/slack-webhook.url
