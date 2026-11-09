@@ -6,15 +6,15 @@ README.md에 기술된 구조와 현재 `src/` 상태를 비교해 정리한 남
 
 README는 아래 파일들이 존재한다고 설명하지만, 최근 커밋(`common·ui 컴포넌트 삭제`, `BaseLayout 레이아웃 삭제`)으로 일부가 제거되어 현재는 없습니다.
 
-| README 항목                                     | 현재 상태 |
-| :---------------------------------------------- | :-------- |
-| `src/components/ui/` (Button, Card 계열)        | 없음      |
-| `src/components/common/` (Header, Footer, ThemeToggle) | 없음 |
-| `src/layouts/BaseLayout.astro`                  | 없음      |
-| `src/styles/global.css`                         | 없음      |
-| `src/lib/site.ts`, `src/lib/utils.ts`           | 있음      |
-| `src/pages/index.astro`                         | 있음      |
-| `src/types/index.ts`                            | 있음      |
+| README 항목                                            | 현재 상태 |
+| :----------------------------------------------------- | :-------- |
+| `src/components/ui/` (Button, Card 계열)               | 없음      |
+| `src/components/common/` (Header, Footer, ThemeToggle) | 없음      |
+| `src/layouts/BaseLayout.astro`                         | 없음      |
+| `src/styles/global.css`                                | 없음      |
+| `src/lib/site.ts`, `src/lib/utils.ts`                  | 있음      |
+| `src/pages/index.astro`                                | 있음      |
+| `src/types/index.ts`                                   | 있음      |
 
 ## 1. 필수 구현 (README와 코드 일치)
 
