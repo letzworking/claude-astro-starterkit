@@ -11,6 +11,14 @@
     "shadcn": {
       "command": "npx",
       "args": ["shadcn@latest", "mcp"]
+    },
+    "memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {
+        "MEMORY_FILE_PATH": "${CLAUDE_PROJECT_DIR:-.}/.claude/memory.json"
+      }
     }
   }
 }

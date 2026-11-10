@@ -43,3 +43,6 @@ CLAUDE.local.md
 
 # Slack 웹훅 URL (비밀값)
 .claude/hooks/slack-webhook.url
+
+# memory MCP 지식 그래프 저장 파일
+.claude/memory.json
